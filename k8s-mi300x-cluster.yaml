@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rocm-mi300x-inference
+  namespace: ai-workloads
+  labels:
+    app.kubernetes.io/name: vllm-rocm-mi300x
+    app.kubernetes.io/part-of: rocm-fleet
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vllm-rocm-mi300x
+  template:
+    metadata:
+      labels:
+        app: vllm-rocm-mi300x
+    spec:
+      containers:
+        - name: vllm-mi300x
+          image: rocm/vllm:rocm6.2_mi300_ubuntu22.04
+          securityContext:
+            privileged: false
+            capabilities:
+              add:
+                - SYS_PTRACE
+          resources:
+            limits:
+              amd.com/gpu: "8"
+              memory: 256Gi
+              cpu: "64"
+            requests:
+              amd.com/gpu: "8"
+              memory: 128Gi
+              cpu: "32"
+          env:
+            - name: HIP_VISIBLE_DEVICES
+              value: "0,1,2,3,4,5,6,7"
+            - name: MODEL_NAME
+              value: "meta-llama/Llama-3.3-70B-Instruct"
+            - name: TENSOR_PARALLEL_SIZE
+              value: "8"
+            - name: HSA_OVERRIDE_GFX_VERSION
+              value: "9.4.2"
+          ports:
+            - containerPort: 8000
+              name: http-api
+          volumeMounts:
+            - mountPath: /dev/kfd
+              name: kfd-device
+            - mountPath: /dev/dri
+              name: dri-device
+      volumes:
+        - name: kfd-device
+          hostPath:
+            path: /dev/kfd
+        - name: dri-device
+          hostPath:
+            path: /dev/dri

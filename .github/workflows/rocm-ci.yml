@@ -1,0 +1,26 @@
+name: AMD ROCm 6.2 CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Syntax Check Workloads
+        run: |
+          python3 -m py_compile vllm_mi300x_serve.py
+          python3 -m py_compile train_fsdp_mi300x.py
+          python3 -m py_compile rocm_triton_kernel.py
+      - name: Run Validation Script
+        run: |
+          chmod +x scripts/validate.sh
+          ./scripts/validate.sh
