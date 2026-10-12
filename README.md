@@ -1,3 +1,6 @@
+[![Ecosystem](https://img.shields.io/badge/Portfolio%20Ecosystem-341%20Studios-6366f1.svg)](https://pradeeptalari.me/projects/)
+[![Architecture DAG](https://img.shields.io/badge/Architecture-DAG%20%26%20Course-10b981.svg)](https://pradeeptalari.me/tools/repo-learning/)
+
 # ⚡ AMD ROCm 6.2 & Instinct MI300X AI Training & Inference Studio
 
 [![CI SRE Validation](https://github.com/Pradeeptalari14/tp-rocm-mi300x/actions/workflows/rocm-ci.yml/badge.svg)](https://github.com/Pradeeptalari14/tp-rocm-mi300x/actions)
@@ -205,3 +208,6 @@ tp-rocm-mi300x/
 
 - **License:** [MIT License](LICENSE)
 - **Attribution:** Maintained by **[Talari Pradeep](https://talaripradeep.info/)** · AI Infrastructure & Platform SRE Lead
+
+---
+*Synchronized with [AMD ROCm 6.2 & Instinct MI300X AI Studio Studio](https://pradeeptalari.me/tools/amd-rocm-mi300x/) & [Repository Learning DAG](https://pradeeptalari.me/tools/repo-learning/) — [Talari Pradeep Portfolio](https://pradeeptalari.me)*
